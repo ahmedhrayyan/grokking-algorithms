@@ -1,15 +1,19 @@
-def quicksort(ls: list[int], pivot_index: int = None) -> list[int]:
+# Example of quicksort algorithm
+
+# REF: Grokking algorithm, loc: 1634
+
+def quicksort(ls: list[int]) -> list[int]:
     """
-    quicksort list of integers, this is not on place sort, it does not alter the original list
+    Quicksort list of integers using the middle index element as the pivot.
+    This is not in-place sort, it does not alter the original list.
 
     :param ls: list of integers to be sorted
-    :param pivot_index: pivot index, if not supplied will be the middle index
     :return: list of sorted integers
     """
     if len(ls) < 2:
         return ls
 
-    pivot_index = pivot_index or len(ls) // 2
+    pivot_index = len(ls) // 2
     pivot = ls[pivot_index]
 
     left: list[int] = []
@@ -28,9 +32,8 @@ def quicksort(ls: list[int], pivot_index: int = None) -> list[int]:
 
 def get_middle(ls: list[int]) -> int:
     """
-    get the middle integer from list of integers
-
-    Ex: 3 is the middle element of [3, 2, 1, 4, 5]
+    get the middle integer from list of integers.
+    Eg: 3 is the middle element of [3, 2, 1, 4, 5]
 
     :param ls: list of integers
     :return: middle_index
@@ -49,9 +52,28 @@ def get_middle(ls: list[int]) -> int:
 
 def quicksort_enhanced(ls: list[int]):
     """
-    This is an enhanced version of quicksort (in my opinion) because it guarantees O(nlogn) runtime
+    This is an enhanced version of quicksort (in my opinion) because it guarantees O(nlogn) runtime as it always
+    uses the middle element (not the middle index) as the pivot
     """
-    return quicksort(ls, get_middle(ls))
+
+    if len(ls) < 2:
+        return ls
+
+    pivot_index = get_middle(ls)
+    pivot = ls[pivot_index]
+
+    left: list[int] = []
+    right: list[int] = []
+
+    for i, val in enumerate(ls):
+        if i == pivot_index:
+            continue
+        if val > pivot:
+            right.append(val)
+        else:
+            left.append(val)
+
+    return quicksort_enhanced(left) + [pivot] + quicksort_enhanced(right)
 
 
 if __name__ == "__main__":
