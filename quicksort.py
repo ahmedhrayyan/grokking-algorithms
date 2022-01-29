@@ -54,6 +54,8 @@ def quicksort_enhanced(ls: list[int]):
     """
     This is an enhanced version of quicksort (in my opinion) because it guarantees O(nlogn) runtime as it always
     uses the middle element (not the middle index) as the pivot
+
+    In practice, quicksort is about twice faster or even more!!
     """
 
     if len(ls) < 2:
